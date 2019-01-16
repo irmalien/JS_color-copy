@@ -1,15 +1,13 @@
-//TODO ideja: krāsu spektrs mouseX+mouseY+Scroll, hue, light, saturation. Rclick, copē un izvada krāsas kodu kādā no sistēmam.
-
 var h = 0;
 var s = 0;
-var b = 50;
+var l = 50;
 var rgb;
 var colorId = document.getElementById("colorId");
 var w;
 var h;
 
 function setup() {
-  colorMode(HSB, 360, 100, 100);
+  colorMode(HSL, 360, 100, 100);
   h = random(0, 360);
 }
 
@@ -23,8 +21,8 @@ function draw() {
   else {
     s = map(mouseX, halfWidth, windowWidth, 100, 0);
   }
-  b = map(mouseY, 0, windowHeight, 100, 0);
-  rgb = hslToHex(h, s, b);
+  l = map(mouseY, 0, windowHeight, 100, 0);
+  rgb = hslToHex(h, s, l);
 
   document.bgColor = rgb;
   document.getElementById("colorId").innerHTML = rgb;
@@ -36,21 +34,7 @@ function mouseClicked() {
   copyToClipboard("#colorId");
   alert("color copied");
 }
-//
-// function CopyToClipboard(containerid) {
-// if (document.selection) {
-//     var range = document.body.createTextRange();
-//     range.moveToElementText(document.getElementById(containerid));
-//     range.select().createTextRange();
-//     document.execCommand("copy");
-//
-// } else if (window.getSelection) {
-//     var range = document.createRange();
-//      range.selectNode(document.getElementById(containerid));
-//      window.getSelection().addRange(range);
-//      document.execCommand("copy");
-//      alert("text copied")
-// }};
+
 
 function mouseWheel(event) {
   h += event.delta/100;
@@ -60,15 +44,7 @@ function mouseWheel(event) {
   return false;
 };
 
-// function keyPressed() {
-//   if (keyCode === LEFT_ARROW) {
-//     console.log('left')
-//     s--;
-//   } else if (keyCode === RIGHT_ARROW) {
-//     console.log('right')
-//     s++;
-//   }
-// }
+
 
 function hslToHex(h, s, l) {
   h /= 360;
